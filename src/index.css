@@ -1,42 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Roboto:wght@300;400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Monastery360 Design System - Sikkim Government Theme
+All colors MUST be HSL. Deep Sikkim green primary, saffron accent.
 */
 
 @layer base {
   :root {
+    /* Sikkim Government Color Palette */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: 146 42% 10%;
+    
+    /* Primary - Deep Sikkim Green */
+    --primary: 146 95% 13%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 146 60% 25%;
+    --primary-dark: 146 100% 8%;
+    
+    /* Accent - Saffron/Golden */
+    --accent: 48 100% 45%;
+    --accent-foreground: 146 95% 13%;
+    --accent-light: 48 100% 60%;
+    --accent-dark: 48 100% 35%;
+    
+    /* Cards and Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 146 42% 10%;
+    --card-hover: 146 15% 97%;
+    
+    /* Muted and Secondary */
+    --muted: 120 20% 96%;
+    --muted-foreground: 146 20% 45%;
+    --secondary: 48 25% 95%;
+    --secondary-foreground: 146 42% 15%;
+    
+    /* Interactive Elements */
+    --border: 146 25% 88%;
+    --input: 146 25% 92%;
+    --ring: 146 95% 13%;
+    
+    /* Destructive */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --popover-foreground: 146 42% 10%;
+    
+    /* Design System Extensions */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-light)));
+    --gradient-hero: linear-gradient(rgba(1, 68, 33, 0.7), rgba(1, 68, 33, 0.4));
+    
+    /* Shadows */
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-accent: 0 5px 20px -5px hsl(var(--accent) / 0.4);
+    --shadow-soft: 0 2px 10px -2px hsl(146 25% 50% / 0.1);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +128,32 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-roboto;
+    font-feature-settings: "kern" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-lato font-bold;
+  }
+}
+
+@layer components {
+  .monastery-hero {
+    background: var(--gradient-hero);
+    backdrop-filter: blur(2px);
+  }
+  
+  .monastery-card {
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .monastery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .accent-glow {
+    box-shadow: var(--shadow-accent);
   }
 }
