@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3">
               <Globe className="h-8 w-8 text-accent" />
               <div>
-                <h3 className="text-xl font-lato font-bold">Monastery360</h3>
+                <h3 className="text-xl font-lato font-bold">GoTrek</h3>
                 <p className="text-sm opacity-80">Government of Sikkim</p>
               </div>
             </div>

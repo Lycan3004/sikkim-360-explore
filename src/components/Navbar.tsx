@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, Globe, Map, Archive, Calendar, MapPin, Users, Info } from 'lucide-react';
+import globePng from '@/assets/cropped_circle_image (1).png';
 
 const Navbar = () => {
   return (
@@ -8,13 +9,16 @@ const Navbar = () => {
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <Globe className="h-8 w-8 text-primary" />
+          <a href="#" aria-label="Globe">
+            <img src={globePng} alt="Globe Icon" style={{ width: 44, height: 44 }} />
+          </a>
+
           <div>
-            <h1 className="text-xl font-lato font-bold text-primary">Monastery360</h1>
+            <h1 className="text-xl font-lato font-bold text-primary">GoTrek</h1>
             <p className="text-xs text-muted-foreground">Government of Sikkim</p>
           </div>
         </div>
-        
+
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
           <Button variant="ghost" className="font-medium">
@@ -46,14 +50,14 @@ const Navbar = () => {
             About
           </Button>
         </div>
-        
+
         {/* CTA Button */}
         <div className="hidden md:block">
           <Button variant="hero" size="lg">
             Start Tour
           </Button>
         </div>
-        
+
         {/* Mobile Menu Button */}
         <Button variant="outline" size="icon" className="md:hidden">
           <Menu className="h-5 w-5" />

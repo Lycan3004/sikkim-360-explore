@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Clock, Users, Camera, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 interface MonasteryCardProps {
   monastery: {
@@ -30,6 +31,8 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
     }
   };
 
+  const isRumtek = monastery.id === '1';
+
   return (
     <Card className={cn("monastery-card bg-card hover:bg-card-hover overflow-hidden", className)}>
       <div className="relative">
@@ -51,7 +54,7 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
           </div>
         </div>
       </div>
-      
+
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <CardTitle className="text-xl font-lato text-primary line-clamp-2">
@@ -62,7 +65,7 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
           {monastery.description}
         </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="pt-0">
         <div className="space-y-3">
           {/* Region and Year */}
@@ -73,23 +76,34 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
             <Clock className="h-4 w-4 mr-1" />
             <span>Est. {monastery.yearEstablished}</span>
           </div>
-          
+
           {/* Accessibility Badge */}
           <div className="flex items-center gap-2">
-            <Badge 
-              variant="secondary" 
+            <Badge
+              variant="secondary"
               className={getAccessibilityColor(monastery.accessibility)}
             >
               <Users className="h-3 w-3 mr-1" />
               {monastery.accessibility} access
             </Badge>
           </div>
-          
+
           {/* Action Buttons */}
           <div className="flex gap-2 pt-2">
-            <Button variant="monastery" className="flex-1" size="sm">
-              Explore
-            </Button>
+            {isRumtek ? (
+              <Link to="/rumtek-dt" className="flex-1">
+                <Button variant="monastery" size="sm" style={{ width: '100%' }}>
+                  Explore
+                </Button>
+              </Link>
+
+            ) : (
+
+              <Button variant="monastery" className="flex-1" size="sm">
+                Explore
+              </Button>
+            )}
+
             <Button variant="outline" size="sm" className="border-primary text-primary">
               <MapPin className="h-4 w-4" />
             </Button>

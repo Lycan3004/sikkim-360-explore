@@ -2,9 +2,10 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import MonasteryCard from './MonasteryCard';
 import { ArrowRight } from 'lucide-react';
-import buddhistMural from '@/assets/buddhist-mural.jpg';
-import manuscriptImage from '@/assets/buddhist-manuscript1.jpg';
+import buddhistMural from '@/assets/rumtek.jpg';
+import manuscriptImage from '@/assets/pemayangtse.webp';
 import heroImage from '@/assets/richenpong.jpeg';
+import { Link } from 'react-router-dom';
 
 const featuredMonasteries = [
   {
@@ -17,6 +18,7 @@ const featuredMonasteries = [
     yearEstablished: 1740,
     hasVirtualTour: true,
     accessibility: 'full' as const,
+    link: '/rumtek-dt',
   },
   {
     id: '2',
@@ -31,8 +33,8 @@ const featuredMonasteries = [
   },
   {
     id: '3',
-    name: 'Enchey Monastery',
-    description: 'A 200-year-old monastery offering panoramic views of Kanchenjunga.',
+    name: 'Richenpong Monastery',
+    description: 'A tranquil monastery in Sikkim, revered for its spiritual significance and timeless Buddhist heritage.',
     region: 'East Sikkim',
     image: heroImage,
     rating: 4.6,
@@ -54,7 +56,7 @@ const FeaturedMonasteries = () => {
             Discover the most revered monasteries of Sikkim, each preserving centuries of Buddhist heritage and wisdom.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredMonasteries.map((monastery) => (
             <MonasteryCard
@@ -63,7 +65,7 @@ const FeaturedMonasteries = () => {
             />
           ))}
         </div>
-        
+
         <div className="text-center mt-12">
           <Button variant="hero" size="lg">
             View All Monasteries

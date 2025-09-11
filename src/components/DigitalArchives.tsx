@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Archive, Book, Image, Download, Search, Eye } from 'lucide-react';
-import manuscriptImage from '@/assets/buddhist-manuscript1.jpg';
-import muralImage from '@/assets/buddhist-mural.jpg';
+import manuscriptImage from '@/assets/buddhist-manuscript2.jpg';
+import muralImage from '@/assets/buddhist-mural1.jpg';
+import wheelImage from '@/assets/prayerwheel.jpg';
 
 const archiveItems = [
   {
@@ -34,7 +35,7 @@ const archiveItems = [
     monastery: 'Enchey Monastery',
     century: '19th Century',
     language: 'Tibetan',
-    image: manuscriptImage,
+    image: wheelImage,
     description: 'Historical documentation of sacred prayer wheel mantras',
   },
 ];
