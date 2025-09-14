@@ -14,6 +14,7 @@ import RichenpongDetails from '@/monasterydetails/richenpong-dt';
 import AbdManuscript from '@/muraldetails/abd-manuscript';
 import SacredMural from '@/muraldetails/sacred-mural';
 import PrayerInsc from '@/muraldetails/prayer-insc';
+import SmartAudioGuide from "@/components/smartAudioBook";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/muraldetails/abd-manuscript" element={<AbdManuscript />} />
           <Route path="/muraldetails/sacred-mural" element={<SacredMural />} />
           <Route path="/muraldetails/prayer-insc" element={<PrayerInsc />} />
+          <Route path="/audio-guide" element={<SmartAudioGuide />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
