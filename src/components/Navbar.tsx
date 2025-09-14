@@ -11,6 +11,7 @@ import {
   Info,
   X,
   BookOpen,
+  LogIn, // Add LogIn icon
 } from "lucide-react";
 import globePng from "@/assets/cropped_circle_image (1).png";
 import { useNavigate } from "react-router-dom";
@@ -146,6 +147,12 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   };
 
+  // Add login handler
+  const handleLoginClick = () => {
+    navigate("/login");
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-40">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -216,10 +223,11 @@ const Navbar = () => {
           </Button>
         </div>
 
-        {/* CTA Button */}
+        {/* Updated: Login Button */}
         <div className="hidden md:block">
-          <Button variant="hero" size="lg">
-            Start Tour
+          <Button variant="hero" size="lg" onClick={handleLoginClick}>
+            <LogIn className="h-4 w-4 mr-2" />
+            Login
           </Button>
         </div>
 
@@ -295,9 +303,11 @@ const Navbar = () => {
               <BookOpen className="h-4 w-4 mr-2" />
               Audio Guide
             </Button>
+            {/* Updated: Mobile Login Button */}
             <div className="pt-2">
-              <Button variant="hero" size="lg" className="w-full">
-                Start Tour
+              <Button variant="hero" size="lg" className="w-full" onClick={handleLoginClick}>
+                <LogIn className="h-4 w-4 mr-2" />
+                Login
               </Button>
             </div>
           </div>
