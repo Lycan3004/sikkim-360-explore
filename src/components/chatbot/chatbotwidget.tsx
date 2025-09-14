@@ -8,14 +8,14 @@ interface Message {
 
 const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hi there! I'm your AI assistant. How can I help you today?", sender: 'bot' }
+    { text: "Hi there! I'm your assistant. How can I help?", sender: 'bot' }
   ]);
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  // Initialize speech recognition
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -42,7 +42,6 @@ const AIChatbot: React.FC = () => {
     }
   }, []);
 
-  // Scroll to bottom of messages
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -52,9 +51,7 @@ const AIChatbot: React.FC = () => {
   };
 
   const addMessage = (text: string, sender: 'user' | 'bot') => {
-    setMessages(prevMessages => [...prevMessages, { text, sender }]);
-
-    // Speak bot messages
+    setMessages(prev => [...prev, { text, sender }]);
     if (sender === 'bot' && 'speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.9;
@@ -63,7 +60,7 @@ const AIChatbot: React.FC = () => {
     }
   };
 
-  const handleVoiceButtonClick = () => {
+  const handleVoiceClick = () => {
     if (!recognitionRef.current) return;
 
     if (isListening) {
@@ -76,66 +73,63 @@ const AIChatbot: React.FC = () => {
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSend = () => {
     if (inputText.trim()) {
-      processMessage(inputText);
+      processMessage(inputText.trim());
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
+      e.preventDefault();
+      handleSend();
     }
   };
-
-  const handleSuggestionClick = (text: string) => {
-    setInputText(text);
-    processMessage(text);
-  };
-
-  const processMessage = (message: string) => {
+  const processMessage = async (message: string) => {
     addMessage(message, 'user');
     setInputText('');
+    setIsTyping(true);
 
-    // Simulate AI thinking
-    setTimeout(() => {
-      generateResponse(message);
-    }, 1500);
+    try {
+      const aiResponse = await generateResponseFromAPI(message);
+      setIsTyping(false);
+      addMessage(aiResponse, 'bot');
+    } catch (error) {
+      setIsTyping(false);
+      addMessage("Sorry, I couldn't process that request right now.", 'bot');
+      console.error(error);
+    }
   };
 
-  const generateResponse = (userMessage: string) => {
-    const lowerCaseMessage = userMessage.toLowerCase();
-    let response: string;
+  const generateResponseFromAPI = async (userMessage: string): Promise<string> => {
+    const apiKey = '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';
 
-    // Simple response logic - replace with your AI API call
-    if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi')) {
-      response = "Hello! How can I assist you today?";
-    } else if (lowerCaseMessage.includes('how are you')) {
-      response = "I'm just a program, but I'm functioning perfectly! Thanks for asking. How can I help you?";
-    } else if (lowerCaseMessage.includes('joke')) {
-      const jokes = [
-        "Why don't scientists trust atoms? Because they make up everything!",
-        "Why did the scarecrow win an award? Because he was outstanding in his field!",
-        "What do you call a fake noodle? An impasta!"
-      ];
-      response = jokes[Math.floor(Math.random() * jokes.length)];
-    } else if (lowerCaseMessage.includes('help')) {
-      response = "I can answer questions, tell jokes, or just chat. You can type or use the microphone to talk to me!";
-    } else if (lowerCaseMessage.includes('weather')) {
-      response = "I don't have access to real-time weather data, but I can tell you that it's a beautiful day in the digital world!";
-    } else if (lowerCaseMessage.includes('thank')) {
-      response = "You're welcome! Is there anything else I can help you with?";
-    } else if (lowerCaseMessage.includes('what can you do')) {
-      response = "I can answer questions, have conversations, tell jokes, and more! Try asking me about anything or use the voice feature for hands-free interaction.";
-    } else if (lowerCaseMessage.includes('how does this work')) {
-      response = "This chatbot uses speech recognition for voice input and text-to-speech for responses. You can either type or click the microphone button to talk to me!";
-    } else if (lowerCaseMessage.includes('tsx') || lowerCaseMessage.includes('typescript')) {
-      response = "TypeScript with React (TSX) is a great combination for building robust web applications! This chatbot has been adapted to work seamlessly in your TSX project.";
-    } else {
-      response = "That's interesting! Could you tell me more?";
+    const requestBody = {
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: userMessage }
+      ],
+      max_tokens: 150,
+      temperature: 0.7,
+    };
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.statusText}`);
     }
 
-    addMessage(response, 'bot');
+    const data = await response.json();
+    const aiText = data.choices && data.choices[0]?.message?.content;
+    return aiText || "I'm sorry, I don't have a response for that.";
   };
 
   return (
@@ -149,64 +143,45 @@ const AIChatbot: React.FC = () => {
       </div>
 
       <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.sender}-message`}
-          >
-            {message.text}
+        {messages.map((m, i) => (
+          <div key={i} className={`message ${m.sender}-message`}>
+            {m.text}
           </div>
         ))}
+        {isTyping && <div className="message bot-message" style={{ fontStyle: 'italic', opacity: 0.7 }}>AI is typing...</div>}
         <div ref={messagesEndRef} />
-
-        {messages.length === 1 && (
-          <div className="suggestions">
-            <div
-              className="suggestion-chip"
-              onClick={() => handleSuggestionClick('What can you do?')}>
-              What can you do?
-            </div>
-            <div
-              className="suggestion-chip"
-              onClick={() => handleSuggestionClick('Tell me a joke')}>
-              Tell me a joke
-            </div>
-            <div
-              className="suggestion-chip"
-              onClick={() => handleSuggestionClick('How does this work?')}>
-              How does this work?
-            </div>
-          </div>
-        )}
       </div>
 
       <div className="chat-input">
         <input
           type="text"
           value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
+          onChange={e => setInputText(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder={
-            recognitionRef.current
-              ? "Type your message or use voice..."
-              : "Type your message..."
-          }
+          placeholder={recognitionRef.current ? "Type or speak..." : "Type a message"}
+          aria-label="Chat input"
         />
-        <button id="sendButton" onClick={handleSendMessage}>
+        <button
+          id="sendButton"
+          onClick={handleSend}
+          aria-label="Send message"
+          type="button"
+        >
           <i className="fas fa-paper-plane"></i>
         </button>
         {!!recognitionRef.current && (
           <button
             id="voiceButton"
             className={`voice-btn ${isListening ? 'listening' : ''}`}
-            onClick={handleVoiceButtonClick}
+            onClick={handleVoiceClick}
+            aria-label="Toggle voice input"
+            type="button"
           >
             <i className="fas fa-microphone"></i>
           </button>
         )}
       </div>
     </div>
-
   );
 };
 
