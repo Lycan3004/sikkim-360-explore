@@ -16,6 +16,9 @@ import SacredMural from '@/muraldetails/sacred-mural';
 import PrayerInsc from '@/muraldetails/prayer-insc';
 import SmartAudioGuide from "@/components/smartAudioBook";
 
+import AIChatbot from './components/chatbot/chatbotwidget';
+<AIChatbot />
+
 const queryClient = new QueryClient();
 
 const App = () => (
