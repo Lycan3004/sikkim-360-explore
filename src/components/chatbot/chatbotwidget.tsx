@@ -102,21 +102,28 @@ const AIChatbot: React.FC = () => {
   };
 
   const generateResponseFromAPI = async (userMessage: string): Promise<string> => {
-    const response = await fetch('http://localhost:3001/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [
-          { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: userMessage },
-        ],
-      }),
-    });
-    if (!response.ok) {
-      throw new Error('API error: ' + response.statusText);
+    try {
+      const response = await fetch('http://localhost:3001/api/chat', {  // Adjust as needed
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: userMessage }
+          ],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Backend error: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return data.choices?.[0]?.message?.content || "Sorry, I don't have a response.";
+    } catch (error) {
+      console.error('Error fetching from backend:', error);
+      return "Sorry, something went wrong.";
     }
-    const data = await response.json();
-    return data.choices[0]?.message?.content || "Sorry, I don't have a response.";
   };
 
 
