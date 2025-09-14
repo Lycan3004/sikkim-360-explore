@@ -1,7 +1,7 @@
 .chatbot-container {
-  position: fixed; 
-  bottom: 20px;    
-  right: 20px;     
+  position: fixed;
+  bottom: 20px;
+  right: 20px;      /* add this */
   width: 380px;
   height: 400px;
   background: white;
@@ -11,7 +11,18 @@
   flex-direction: column;
   overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  z-index: 1000;
+  z-index: 1001;
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(30px) scale(0.98);
+  box-sizing: border-box;
+}
+
+.chatbot-container.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
 }
 
 .chat-header {
@@ -150,6 +161,46 @@
 
 .suggestion-chip:hover {
   background: #d5d9e3;
+}
+
+.chatbot-popup-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;      /* add this */
+  z-index: 1002;
+  background: linear-gradient(to right, #6e8efb, #a777e3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 62px;
+  height: 62px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  cursor: pointer;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.chatbot-popup-btn:hover {
+  background: linear-gradient(to right, #5a7ce7, #9266d1);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.22);
+}
+
+.chatbot-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.chatbot-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
