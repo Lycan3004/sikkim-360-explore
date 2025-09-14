@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import LoginPage from "@/pages/Login";
 
 import RumtekDetails from '@/monasterydetails/rumtek-dt';
 import PemyangtseDetails from '@/monasterydetails/pemyangtse-dt';
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/muraldetails/sacred-mural" element={<SacredMural />} />
           <Route path="/muraldetails/prayer-insc" element={<PrayerInsc />} />
           <Route path="/audio-guide" element={<SmartAudioGuide />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
