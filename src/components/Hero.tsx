@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Play, Star, Users, Calendar } from 'lucide-react';
+import { Play, Star, Users, Calendar, House } from 'lucide-react';
 import heroImage from '@/assets/richenpong.jpeg';
 
 const Hero = () => {

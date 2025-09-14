@@ -102,35 +102,23 @@ const AIChatbot: React.FC = () => {
   };
 
   const generateResponseFromAPI = async (userMessage: string): Promise<string> => {
-    const apiKey = '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';
-
-    const requestBody = {
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You are a helpful assistant." },
-        { role: "user", content: userMessage }
-      ],
-      max_tokens: 150,
-      temperature: 0.7,
-    };
-
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('http://localhost:3001/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [
+          { role: 'system', content: 'You are a helpful assistant.' },
+          { role: 'user', content: userMessage },
+        ],
+      }),
     });
-
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.statusText}`);
+      throw new Error('API error: ' + response.statusText);
     }
-
     const data = await response.json();
-    const aiText = data.choices && data.choices[0]?.message?.content;
-    return aiText || "I'm sorry, I don't have a response for that.";
+    return data.choices[0]?.message?.content || "Sorry, I don't have a response.";
   };
+
 
   return (
     <div className="chatbot-container">

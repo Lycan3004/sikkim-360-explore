@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, Clock, Star } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, Star, House } from 'lucide-react';
 
 const events = [
   {
@@ -152,8 +152,8 @@ const CulturalCalendar = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg">
-                <Calendar className="h-4 w-4" />
-                View Full Calendar
+                <House className="h-4 w-4" />
+                Accomodation
               </Button>
               <Button variant="outline" size="lg" className="border-primary text-primary">
                 Custom Itinerary
