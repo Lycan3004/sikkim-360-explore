@@ -65,14 +65,14 @@ const Hero = () => {
             <p className="text-sm opacity-80">Join monks in daily rituals and meditation sessions</p>
           </div>
           <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <Calendar className="h-8 w-8 text-accent mb-3 mx-auto" />
-            <h3 className="font-lato font-bold mb-2">Festival Calendar</h3>
-            <p className="text-sm opacity-80">Experience vibrant Sikkimese Buddhist festivals</p>
-          </div>
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
             <Star className="h-8 w-8 text-accent mb-3 mx-auto" />
             <h3 className="font-lato font-bold mb-2">Heritage Archives</h3>
             <p className="text-sm opacity-80">Discover ancient manuscripts and sacred art</p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+            <Calendar className="h-8 w-8 text-accent mb-3 mx-auto" />
+            <h3 className="font-lato font-bold mb-2">Festival Calendar</h3>
+            <p className="text-sm opacity-80">Experience vibrant Sikkimese Buddhist festivals</p>
           </div>
         </div>
       </div>

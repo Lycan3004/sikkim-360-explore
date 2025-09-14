@@ -6,6 +6,10 @@ import { MapPin, Clock, Users, Camera, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 
+// Replace with your actual Google Earth URLs
+const rumtekEarthUrl = "https://earth.google.com/web/search/Rumtek+Monastery,+Sikkim/@27.28884362,88.56089981,1708.94108198a,0d,60y,142.37879747h,101.0152261t,0r/data=CiwiJgokCZJy01mTzzRAEZFy01mTzzTAGVRd6j-9CUlAIS9Ro4xjRErAQgIIASIbChdDSUhNMG9nS0VJQ0FnSUNrdmV2VWl3RRAFOgMKATBCAggASg0I____________ARAA";
+const pemayangtseEarthUrl = "https://earth.google.com/web/search/PEMAYANGTSE+MANI+LA-GANG,+Sikkim/@27.30518919,88.2515658,2101.02252809a,0d,60y,177.74624038h,112.41239252t,0r/data=Co8BGmESWwolMHgzOWU2ODVkNGE1ZWJmZmZmOjB4OWUxNDYyMDViYzU4NDE0ZBnbAMf59k07QCEYZew6ChBWQCogUEVNQVlBTkdUU0UgTUFOSSBMQS1HQU5HLCBTaWtraW0YASABIiYKJAlrs1Gdi0s7QBFqN0iZV0g7QBk1cfCj0iRWQCFCJq3s-CJWQEICCAEiGwoXQ0lITTBvZ0tFSUNBZ0lERWhKWG5wQUUQBToDCgEwQgIIAEoNCP___________wEQAA";
+
 interface MonasteryCardProps {
   monastery: {
     id: string;
@@ -35,6 +39,11 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
   const isPemayangtse = monastery.id === '2';
   const isRichenpong = monastery.id === '3';
 
+  // Select Google Earth URL if virtual tour is present and for specific monasteries
+  let earthTourUrl: string | null = null;
+  if (isRumtek) earthTourUrl = rumtekEarthUrl;
+  if (isPemayangtse) earthTourUrl = pemayangtseEarthUrl;
+
   return (
     <Card className={cn("monastery-card bg-card hover:bg-card-hover overflow-hidden", className)}>
       <div className="relative">
@@ -43,11 +52,19 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
           alt={monastery.name}
           className="w-full h-48 object-cover"
         />
-        {monastery.hasVirtualTour && (
-          <Badge className="absolute top-3 right-3 bg-accent text-accent-foreground">
-            <Camera className="h-3 w-3 mr-1" />
-            360° Tour
-          </Badge>
+        {monastery.hasVirtualTour && earthTourUrl && (
+          <a
+            href={earthTourUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute top-3 right-3"
+            style={{ textDecoration: 'none' }}
+          >
+            <Badge className="bg-accent text-accent-foreground cursor-pointer hover:scale-105 transition-all flex items-center gap-1">
+              <Camera className="h-3 w-3 mr-1" />
+              360° Tour
+            </Badge>
+          </a>
         )}
         <div className="absolute top-3 left-3">
           <div className="flex items-center bg-white/90 rounded-full px-2 py-1 text-sm">
@@ -120,7 +137,6 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
               <MapPin className="h-4 w-4" />
             </Button>
           </div>
-
         </div>
       </CardContent>
     </Card>
