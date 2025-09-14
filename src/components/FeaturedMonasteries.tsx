@@ -6,6 +6,7 @@ import buddhistMural from '@/assets/rumtek.jpg';
 import manuscriptImage from '@/assets/pemayangtse.webp';
 import heroImage from '@/assets/richenpong.jpeg';
 import { Link } from 'react-router-dom';
+import { link } from 'fs';
 
 const featuredMonasteries = [
   {
@@ -30,6 +31,7 @@ const featuredMonasteries = [
     yearEstablished: 1705,
     hasVirtualTour: true,
     accessibility: 'partial' as const,
+    link: '/pemyangtse-dt',
   },
   {
     id: '3',
@@ -41,6 +43,7 @@ const featuredMonasteries = [
     yearEstablished: 1840,
     hasVirtualTour: false,
     accessibility: 'limited' as const,
+    link: '/richenpong-dt',
   },
 ];
 

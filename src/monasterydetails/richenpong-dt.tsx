@@ -1,8 +1,8 @@
 import React from 'react';
 import { MapPin, Cloud, Clock, Camera, AlertCircle } from 'lucide-react';
-import pemyangtseImage from '@/assets/pemayangtse.webp';
-import pemyangtseImage2 from '@/assets/pemayangtse2.jpg';
-import pemyangtseImage3 from '@/assets/pemyangtse3.jpg';
+import richenpongImage from '@/assets/richenpong.jpeg';
+import richenpongImage2 from '@/assets/richenpong2.jpg';
+import richenpongImage3 from '@/assets/richenpong3.jpg';
 
 const InfoPage: React.FC = () => {
     return (
@@ -37,7 +37,7 @@ const InfoPage: React.FC = () => {
                         letterSpacing: '1.6px',
                     }}
                 >
-                    Pemyangtse Monastery
+                    Richenpong Monastery
                 </h1>
                 <p
                     style={{
@@ -48,9 +48,7 @@ const InfoPage: React.FC = () => {
                         marginBottom: '1.6rem',
                     }}
                 >
-                    {`Perched on a hilltop near Pelling, Pemayangtse Monastery is one of the oldest and most prestigious monasteries in Sikkim. Its name means “Perfect Sublime Lotus”, symbolizing purity and spiritual growth. 
-Founded in the 17th century by Lama Lhatsun Chenpo, it belongs to the Nyingma sect of Tibetan Buddhism, the oldest Buddhist tradition. Just 2 km from Pelling, it offers stunning views, especially in spring and summer when the Himalayas are clearly visible.
-Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Traditionally, only monks of pure Tibetan lineage were allowed to join here, which added to its exclusivity`}
+                    {`Rinchenpong Monastery, the third oldest monastery in Sikkim, is perched at an altitude of 5,500 ft and offers breathtaking views of Kanchenjunga and the surrounding Himalayan peaks. Established nearly 300 years ago, this monastery is unique for housing a rare statue of Ati Buddha seated in the Yab-Yum position, something not commonly found in other monasteries`}
                 </p>
                 <div
                     style={{
@@ -74,8 +72,11 @@ Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Tradi
                                 textAlign: 'center',
                             }}
                         >
-                            : About 110 km <div>
+                            : About 123 km <div>
                                 from Gangtok.</div>
+                                <div>
+                                    Richenpong village
+                                </div>
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '64px' }}>
@@ -92,7 +93,7 @@ Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Tradi
                             }}
                         >
                             : March – June,<div>
-                                when the weather is clear.</div>
+                                September - November</div>
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '64px' }}>
@@ -109,7 +110,7 @@ Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Tradi
                             }}
                         >
                             : Open daily <div>
-                                9:00 AM – 6:00 PM.</div>
+                                9:00 AM – 5:00 PM.</div>
                         </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '64px' }}>
@@ -142,15 +143,20 @@ Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Tradi
                                 textAlign: 'center',
                             }}
                         >
-                            : Visit early morning
+                            : go on a walk
                             <div>
-                                to experience the </div>
+                                through Richenpong </div>
                             <div>
-                                prayers and views.
+                                village to reach 
+                            </div>
+                            <div>
+                                the monastery.
                             </div>
                         </span>
                     </div>
                 </div>
+
+                {/* Final paragraph */}
                 <p
                     style={{
                         fontSize: '1.15rem',
@@ -159,9 +165,7 @@ Pemayangtse was built with the vision of spreading Buddhism across Sikkim. Tradi
                         whiteSpace: 'pre-line',
                     }}
                 >
-                    {`The monastery houses magnificent statues, murals, and ancient scriptures. Its most striking treasure is the seven-tiered wooden model of Sangtok Palri, the celestial palace of Guru Padmasambhava, crafted by a single monk over years of dedication. From the monastery, visitors are greeted with breathtaking views of the Kanchenjunga range and lush valleys below.
-The sound of monks’ chants in the morning adds to its divine atmosphere. Nearby, tourists can also explore the Rabdentse Ruins, the second capital of Sikkim, located within walking distance. 
-`}
+                    {`Located in the quaint Rinchenpong village, the monastery beautifully blends heritage, spirituality, and nature. The trail leading up to the monastery is lined with tall prayer flags fluttering in the mountain breeze, creating a peaceful and meditative atmosphere. This heritage site is a must-visit for those wanting to experience the cultural richness and scenic beauty of West Sikkim`}
                 </p>
             </div>
             <div
@@ -179,8 +183,8 @@ The sound of monks’ chants in the morning adds to its divine atmosphere. Nearb
                 }}
             >
                 <img
-                    src={pemyangtseImage2}
-                    alt="Pemyangtse Monastery"
+                    src={richenpongImage2}
+                    alt="Richenpong Monastery"
                     style={{
                         width: '100%',
                         maxWidth: '650px',
@@ -190,8 +194,8 @@ The sound of monks’ chants in the morning adds to its divine atmosphere. Nearb
                     }}
                 />
                 <img
-                    src={pemyangtseImage3}
-                    alt="Pemyangtse Monastery"
+                    src={richenpongImage3}
+                    alt="Richenpong Monastery"
                     style={{
                         width: '100%',
                         maxWidth: '650px',
@@ -201,8 +205,8 @@ The sound of monks’ chants in the morning adds to its divine atmosphere. Nearb
                     }}
                 />
                 <img
-                    src={pemyangtseImage}
-                    alt="Pemyangtse Monastery"
+                    src={richenpongImage}
+                    alt="Richenpong Monastery"
                     style={{
                         width: '100%',
                         maxWidth: '650px',

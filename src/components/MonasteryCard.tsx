@@ -32,6 +32,8 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
   };
 
   const isRumtek = monastery.id === '1';
+  const isPemayangtse = monastery.id === '2';
+  const isRichenpong = monastery.id === '3';
 
   return (
     <Card className={cn("monastery-card bg-card hover:bg-card-hover overflow-hidden", className)}>
@@ -96,9 +98,19 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
                   Explore
                 </Button>
               </Link>
-
+            ) : isPemayangtse ? (
+              <Link to="/pemyangtse-dt" className="flex-1">
+                <Button variant="monastery" size="sm" style={{ width: '100%' }}>
+                  Explore
+                </Button>
+              </Link>
+            ) : isRichenpong ? (
+              <Link to="/richenpong-dt" className="flex-1">
+                <Button variant="monastery" size="sm" style={{ width: '100%' }}>
+                  Explore
+                </Button>
+              </Link>
             ) : (
-
               <Button variant="monastery" className="flex-1" size="sm">
                 Explore
               </Button>
@@ -108,6 +120,7 @@ const MonasteryCard: React.FC<MonasteryCardProps> = ({ monastery, className }) =
               <MapPin className="h-4 w-4" />
             </Button>
           </div>
+
         </div>
       </CardContent>
     </Card>
