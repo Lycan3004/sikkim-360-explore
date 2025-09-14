@@ -20,6 +20,8 @@ import SmartAudioGuide from "@/components/smartAudioBook";
 import AIChatbot from './components/chatbot/chatbotwidget';
 <AIChatbot />
 
+import Accomodation from "./accomodation/accomodation";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -38,6 +40,7 @@ const App = () => (
           <Route path="/muraldetails/prayer-insc" element={<PrayerInsc />} />
           <Route path="/audio-guide" element={<SmartAudioGuide />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/accomodation" element={<Accomodation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
