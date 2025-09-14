@@ -2,10 +2,11 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import hotelImg from "@/assets/hotel-img.jpg";
-import homestayImg from "@/assets/homestay-img.jpg";
-import resortImg from "@/assets/resort-img.jpg";
-import guesthouseImg from "@/assets/guesthouse-img.jpg";
+import hotelImg from "@/assets/red-cherry.jpg";
+import homestayImg from "@/assets/staynest.jpg";
+import resortImg from "@/assets/mayal-retreat.jpg";
+import guesthouseImg from "@/assets/alpine-crest.jpg";
+import DhrImg from "@/assets/dungmali-heritage-resort.jpg";
 import { MapPin, Home, Sun, Stars } from "lucide-react";
 
 const accommodations = [
@@ -34,7 +35,7 @@ const accommodations = [
     name: "Dungmali Heritage Resort",
     type: "Resort",
     district: "South Sikkim",
-    image: resortImg,
+    image: DhrImg,
     address: "Solophok, Namchi, South Sikkim",
     rating: 4.8,
     highlight: "Himalayan views & peaceful gardens",
