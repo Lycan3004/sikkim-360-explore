@@ -102,7 +102,7 @@ const AIChatbot: React.FC = () => {
   };
 
   const generateResponseFromAPI = async (userMessage: string): Promise<string> => {
-    const apiKey = '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';
+    const apiKey = '';
 
     const requestBody = {
       model: "gpt-4o-mini",

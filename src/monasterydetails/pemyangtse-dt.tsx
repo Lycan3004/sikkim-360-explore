@@ -12,13 +12,13 @@ const InfoPage: React.FC = () => {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=27.2853&longitude=88.1833&current_weather=true`
+          `https://api.open-meteo.com/v1/forecast?latitude=27.3198&longitude=88.2400&current_weather=true`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
         }
         const data = await response.json();
-        setWeather({
+        setWeather({  
           temperature: data.current_weather.temperature,
           windspeed: data.current_weather.windspeed,
         });

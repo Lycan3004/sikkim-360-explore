@@ -10,7 +10,7 @@ const InfoPage: React.FC = () => {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=27.1592&longitude=88.2508&current_weather=true`
+          `https://api.open-meteo.com/v1/forecast?latitude=27.35&longitude=88.34&current_weather=true`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch weather data');
