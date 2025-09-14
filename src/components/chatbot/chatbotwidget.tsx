@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './chatbotwidget.css';
 
 interface Message {
@@ -8,19 +8,18 @@ interface Message {
 
 const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hi there! I'm your AI assistant. How can I help you today?", sender: 'bot' }
+    { text: "Hi there! I'm your assistant. How can I help?", sender: 'bot' }
   ]);
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [open, setOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
-  // Initialize speech recognition
   useEffect(() => {
-    // @ts-ignore
-    const SpeechRecognition = (window.SpeechRecognition || window.webkitSpeechRecognition) as typeof window.SpeechRecognition;
-    if (SpeechRecognition) {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = false;
@@ -42,17 +41,11 @@ const AIChatbot: React.FC = () => {
         setIsListening(false);
       };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const scrollToBottom = useCallback(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
-
-  // Scroll to bottom of messages
   useEffect(() => {
     scrollToBottom();
-  }, [messages, scrollToBottom]);
+  }, [messages]);
 
   // Optional: close on ESC
   useEffect(() => {
@@ -64,19 +57,21 @@ const AIChatbot: React.FC = () => {
     return () => window.removeEventListener("keydown", handler);
   }, [open]);
 
-  const addMessage = (text: string, sender: 'user' | 'bot') => {
-    setMessages(prevMessages => [...prevMessages, { text, sender }]);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    // Speak bot messages
+  const addMessage = (text: string, sender: 'user' | 'bot') => {
+    setMessages(prev => [...prev, { text, sender }]);
     if (sender === 'bot' && 'speechSynthesis' in window) {
-      const utterance = new window.SpeechSynthesisUtterance(text);
+      const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 0.9;
       utterance.pitch = 1.0;
       window.speechSynthesis.speak(utterance);
     }
   };
 
-  const handleVoiceButtonClick = () => {
+  const handleVoiceClick = () => {
     if (!recognitionRef.current) return;
 
     if (isListening) {
@@ -85,26 +80,20 @@ const AIChatbot: React.FC = () => {
     } else {
       recognitionRef.current.start();
       setIsListening(true);
-      // Only add "Listening..." if not already last message
-      if (
-        messages.length === 0 ||
-        messages[messages.length - 1].text !== "Listening..." ||
-        messages[messages.length - 1].sender !== "bot"
-      ) {
-        addMessage("Listening...", 'bot');
-      }
+      addMessage("Listening...", 'bot');
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSend = () => {
     if (inputText.trim()) {
-      processMessage(inputText);
+      processMessage(inputText.trim());
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
+      e.preventDefault();
+      handleSend();
     }
   };
   const processMessage = async (message: string) => {
@@ -177,7 +166,7 @@ const AIChatbot: React.FC = () => {
             right: 16,
             background: "none",
             border: "none",
-            color: "#333", // Use dark color for visibility on light header
+            color: "#fff",
             fontSize: 22,
             cursor: "pointer",
             zIndex: 2,
@@ -196,46 +185,47 @@ const AIChatbot: React.FC = () => {
           </div>
         </div>
 
-      <div className="chat-messages">
-        {messages.map((m, i) => (
-          <div key={i} className={`message ${m.sender}-message`}>
-            {m.text}
-          </div>
-        ))}
-        {isTyping && <div className="message bot-message" style={{ fontStyle: 'italic', opacity: 0.7 }}>AI is typing...</div>}
-        <div ref={messagesEndRef} />
-      </div>
+        <div className="chat-messages">
+          {messages.map((m, i) => (
+            <div key={i} className={`message ${m.sender}-message`}>
+              {m.text}
+            </div>
+          ))}
+          {isTyping && <div className="message bot-message" style={{ fontStyle: 'italic', opacity: 0.7 }}>AI is typing...</div>}
+          <div ref={messagesEndRef} />
+        </div>
 
-      <div className="chat-input">
-        <input
-          type="text"
-          value={inputText}
-          onChange={e => setInputText(e.target.value)}
-          onKeyDown={handleKeyPress}
-          placeholder={recognitionRef.current ? "Type or speak..." : "Type a message"}
-          aria-label="Chat input"
-        />
-        <button
-          id="sendButton"
-          onClick={handleSend}
-          aria-label="Send message"
-          type="button"
-        >
-          <i className="fas fa-paper-plane"></i>
-        </button>
-        {!!recognitionRef.current && (
+        <div className="chat-input">
+          <input
+            type="text"
+            value={inputText}
+            onChange={e => setInputText(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder={recognitionRef.current ? "Type or speak..." : "Type a message"}
+            aria-label="Chat input"
+          />
           <button
-            id="voiceButton"
-            className={`voice-btn ${isListening ? 'listening' : ''}`}
-            onClick={handleVoiceClick}
-            aria-label="Toggle voice input"
+            id="sendButton"
+            onClick={handleSend}
+            aria-label="Send message"
             type="button"
           >
-            <i className="fas fa-microphone"></i>
+            <i className="fas fa-paper-plane"></i>
           </button>
-        )}
+          {!!recognitionRef.current && (
+            <button
+              id="voiceButton"
+              className={`voice-btn ${isListening ? 'listening' : ''}`}
+              onClick={handleVoiceClick}
+              aria-label="Toggle voice input"
+              type="button"
+            >
+              <i className="fas fa-microphone"></i>
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
