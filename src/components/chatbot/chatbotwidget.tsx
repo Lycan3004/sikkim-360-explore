@@ -8,15 +8,15 @@ interface Message {
 
 const AIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { text: "Hi there! I'm your assistant. How can I help?", sender: 'bot' }
+    { text: "Hi there! I'm your AI assistant. How can I help you today?", sender: 'bot' }
   ]);
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-  const [open, setOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
 
+  // Initialize speech recognition
   useEffect(() => {
     // @ts-ignore
     const SpeechRecognition = (window.SpeechRecognition || window.webkitSpeechRecognition) as typeof window.SpeechRecognition;
@@ -49,6 +49,7 @@ const AIChatbot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  // Scroll to bottom of messages
   useEffect(() => {
     scrollToBottom();
   }, [messages, scrollToBottom]);
@@ -64,7 +65,9 @@ const AIChatbot: React.FC = () => {
   }, [open]);
 
   const addMessage = (text: string, sender: 'user' | 'bot') => {
-    setMessages(prev => [...prev, { text, sender }]);
+    setMessages(prevMessages => [...prevMessages, { text, sender }]);
+
+    // Speak bot messages
     if (sender === 'bot' && 'speechSynthesis' in window) {
       const utterance = new window.SpeechSynthesisUtterance(text);
       utterance.rate = 0.9;
@@ -73,7 +76,7 @@ const AIChatbot: React.FC = () => {
     }
   };
 
-  const handleVoiceClick = () => {
+  const handleVoiceButtonClick = () => {
     if (!recognitionRef.current) return;
 
     if (isListening) {
@@ -93,19 +96,17 @@ const AIChatbot: React.FC = () => {
     }
   };
 
-  const handleSend = () => {
+  const handleSendMessage = () => {
     if (inputText.trim()) {
-      processMessage(inputText.trim());
+      processMessage(inputText);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSend();
+      handleSendMessage();
     }
   };
-
   const processMessage = async (message: string) => {
     addMessage(message, 'user');
     setInputText('');
@@ -124,7 +125,7 @@ const AIChatbot: React.FC = () => {
 
   const generateResponseFromAPI = async (userMessage: string): Promise<string> => {
     try {
-      const response = await fetch('http://localhost:3001/api/chat', {
+      const response = await fetch('http://localhost:3001/api/chat', {  // Adjust as needed
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -195,47 +196,46 @@ const AIChatbot: React.FC = () => {
           </div>
         </div>
 
-        <div className="chat-messages">
-          {messages.map((m, i) => (
-            <div key={i} className={`message ${m.sender}-message`}>
-              {m.text}
-            </div>
-          ))}
-          {isTyping && <div className="message bot-message" style={{ fontStyle: 'italic', opacity: 0.7 }}>AI is typing...</div>}
-          <div ref={messagesEndRef} />
-        </div>
+      <div className="chat-messages">
+        {messages.map((m, i) => (
+          <div key={i} className={`message ${m.sender}-message`}>
+            {m.text}
+          </div>
+        ))}
+        {isTyping && <div className="message bot-message" style={{ fontStyle: 'italic', opacity: 0.7 }}>AI is typing...</div>}
+        <div ref={messagesEndRef} />
+      </div>
 
-        <div className="chat-input">
-          <input
-            type="text"
-            value={inputText}
-            onChange={e => setInputText(e.target.value)}
-            onKeyDown={handleKeyPress}
-            placeholder={recognitionRef.current ? "Type or speak..." : "Type a message"}
-            aria-label="Chat input"
-          />
+      <div className="chat-input">
+        <input
+          type="text"
+          value={inputText}
+          onChange={e => setInputText(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder={recognitionRef.current ? "Type or speak..." : "Type a message"}
+          aria-label="Chat input"
+        />
+        <button
+          id="sendButton"
+          onClick={handleSend}
+          aria-label="Send message"
+          type="button"
+        >
+          <i className="fas fa-paper-plane"></i>
+        </button>
+        {!!recognitionRef.current && (
           <button
-            id="sendButton"
-            onClick={handleSend}
-            aria-label="Send message"
+            id="voiceButton"
+            className={`voice-btn ${isListening ? 'listening' : ''}`}
+            onClick={handleVoiceClick}
+            aria-label="Toggle voice input"
             type="button"
           >
-            <i className="fas fa-paper-plane"></i>
+            <i className="fas fa-microphone"></i>
           </button>
-          {!!recognitionRef.current && (
-            <button
-              id="voiceButton"
-              className={`voice-btn ${isListening ? 'listening' : ''}`}
-              onClick={handleVoiceClick}
-              aria-label="Toggle voice input"
-              type="button"
-            >
-              <i className="fas fa-microphone"></i>
-            </button>
-          )}
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
