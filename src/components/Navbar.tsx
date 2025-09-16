@@ -58,13 +58,12 @@ const CalendarPopup = ({ onClose }) => {
               <button
                 key={day}
                 onClick={() => handleDateClick(day)}
-                className={`p-2 rounded-md text-sm transition ${
-                  tags[day]
-                    ? "bg-blue-600 text-white"
-                    : selectedDate === day
+                className={`p-2 rounded-md text-sm transition ${tags[day]
+                  ? "bg-blue-600 text-white"
+                  : selectedDate === day
                     ? "bg-blue-200 text-blue-800"
                     : "bg-white border border-gray-200 hover:bg-gray-50"
-                }`}
+                  }`}
               >
                 {day}
               </button>
@@ -173,7 +172,11 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
-          <Button variant="ghost" className="font-medium">
+          <Button variant="ghost" className="font-medium"
+            onClick={() => {
+              const el = document.getElementById("sacred-monasteries");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}>
             <Globe className="h-4 w-4" />
             Virtual Tours
           </Button>
@@ -188,7 +191,11 @@ const Navbar = () => {
           <Button
             variant="ghost"
             className="font-medium"
-            onClick={handleArchivesClick}
+            onClick={() => {
+              const el = document.getElementById("digital-archives");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+
           >
             <Archive className="h-4 w-4" />
             Archives
@@ -232,9 +239,9 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button - FIXED */}
-        <Button 
-          variant="outline" 
-          size="icon" 
+        <Button
+          variant="outline"
+          size="icon"
           className="md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >

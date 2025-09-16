@@ -5,8 +5,8 @@ import { ArrowRight } from 'lucide-react';
 import buddhistMural from '@/assets/rumtek.jpg';
 import manuscriptImage from '@/assets/pemayangtse.webp';
 import heroImage from '@/assets/richenpong.jpeg';
-import { Link } from 'react-router-dom';
-import { link } from 'fs';
+import { Link } from 'react-router-dom'; // keep if you use routing, not needed for scroll
+// Remove: import { link } from 'fs';
 
 const featuredMonasteries = [
   {
@@ -49,7 +49,7 @@ const featuredMonasteries = [
 
 const FeaturedMonasteries = () => {
   return (
-    <section className="py-20 bg-muted/30">
+    <section id="sacred-monasteries" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-lato font-bold text-primary mb-4">
