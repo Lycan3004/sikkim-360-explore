@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Monastic Festival",
+    "monastery": "Rumtek Monastery",
+    "date": "2025-10-10"
+  },
+  {
+    "id": 2,
+    "title": "Sacred Mask Dance",
+    "monastery": "Pemayangtse Monastery",
+    "date": "2026-01-05"
+  }
+]
