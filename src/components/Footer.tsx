@@ -6,7 +6,7 @@ import globeImage from '@/assets/cropped_circle_image (1).png';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer id='about' className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="space-y-4">

@@ -208,7 +208,11 @@ const Navbar = () => {
             <Calendar className="h-4 w-4" />
             Calendar
           </Button>
-          <Button variant="ghost" className="font-medium">
+          <Button variant="ghost" className="font-medium"
+            onClick={() => {
+              const el = document.getElementById("accmd");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}>
             <MapPin className="h-4 w-4" />
             Plan Visit
           </Button>
@@ -216,7 +220,11 @@ const Navbar = () => {
             <Users className="h-4 w-4" />
             Community
           </Button>
-          <Button variant="ghost" className="font-medium">
+          <Button variant="ghost" className="font-medium"
+            onClick={() => {
+              const el = document.getElementById("about");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}>
             <Info className="h-4 w-4" />
             About
           </Button>

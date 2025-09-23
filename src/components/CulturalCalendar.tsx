@@ -149,7 +149,7 @@ const CulturalCalendar = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        <div id='accmd' className="text-center mt-12">
           <div className="bg-card rounded-lg p-8 border border-border">
             <h3 className="text-xl font-lato font-bold text-primary mb-4">
               Plan Your Spiritual Journey
