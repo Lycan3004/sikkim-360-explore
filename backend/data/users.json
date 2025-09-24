@@ -5,5 +5,12 @@
     "email": "admin04@gmail.com",
     "password": "$2b$10$0umkHj.ILNFNLgbTNRwP8u4/vBNRme.F0Lr..7UXCmI5i.52JSRuO",
     "createdAt": "2025-09-23T18:31:20.204Z"
+  },
+  {
+    "id": 1758692668154,
+    "username": "freya",
+    "email": "suhanamishra05@gmail.com",
+    "password": "$2b$10$y.y9d4YMw4VxDqc8InJYOe4Iou0uqi2qRlqA9v/d4Ww8jU6rEf0VW",
+    "createdAt": "2025-09-24T05:44:28.154Z"
   }
 ]
