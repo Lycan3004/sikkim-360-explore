@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -65,6 +66,8 @@ const formatDate = (dateString: string) => {
 };
 
 const CulturalCalendar = () => {
+  const navigate = useNavigate(); // Initialize navigate hook
+
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -134,7 +137,11 @@ const CulturalCalendar = () => {
                   </div>
                 </div>
                 
-                <Button variant="monastery" className="w-full">
+                <Button 
+                  variant="monastery" 
+                  className="w-full"
+                  onClick={() => navigate('/accommodation')} // Redirect on click
+                >
                   Book Experience
                 </Button>
               </CardContent>
@@ -142,7 +149,7 @@ const CulturalCalendar = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        <div id='accmd' className="text-center mt-12">
           <div className="bg-card rounded-lg p-8 border border-border">
             <h3 className="text-xl font-lato font-bold text-primary mb-4">
               Plan Your Spiritual Journey
@@ -151,9 +158,13 @@ const CulturalCalendar = () => {
               View our complete festival calendar and book authentic cultural experiences
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="lg">
+              <Button 
+                variant="hero" 
+                size="lg"
+                onClick={() => navigate('/accommodation')} // Redirect on click
+              >
                 <House className="h-4 w-4" />
-                Accomodation
+                Accommodation
               </Button>
               <Button variant="outline" size="lg" className="border-primary text-primary">
                 Custom Itinerary

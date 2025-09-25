@@ -1,7 +1,7 @@
 .chatbot-container {
   position: fixed;
   bottom: 20px;
-  right: 20px;      /* add this */
+  right: 20px;      
   width: 380px;
   height: 400px;
   background: white;
