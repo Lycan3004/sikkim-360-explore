@@ -2,11 +2,11 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import hotelImg from "@/assets/red-cherry.jpg";
-import homestayImg from "@/assets/staynest.jpg";
-import resortImg from "@/assets/mayal-retreat.jpg";
-import guesthouseImg from "@/assets/alpine-crest.jpg";
-import DhrImg from "@/assets/dungmali-heritage-resort.jpg";
+import hotelImg from "@/assets/rumtek.jpg";
+import homestayImg from "@/assets/pemayangtse.webp";
+import resortImg from "@/assets/richenpong.jpeg";
+import guesthouseImg from "@/assets/lachan.webp";
+import DhrImg from "@/assets/rumtek2.jpg";
 import { MapPin, Home, Sun, Stars } from "lucide-react";
 
 const accommodations = [

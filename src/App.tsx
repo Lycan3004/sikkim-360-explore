@@ -16,9 +16,11 @@ import AbdManuscript from '@/muraldetails/abd-manuscript';
 import SacredMural from '@/muraldetails/sacred-mural';
 import PrayerInsc from '@/muraldetails/prayer-insc';
 import SmartAudioGuide from "@/components/smartAudioBook";
+import Accomodation from "@/accomodation/accomodation";
+import MapPage from "@/pages/MapPage";
+import CalendarPage from "@/pages/CalendarPage";
 
 import AIChatbot from './components/chatbot/chatbotwidget';
-<AIChatbot />
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,9 @@ const App = () => (
           <Route path="/muraldetails/prayer-insc" element={<PrayerInsc />} />
           <Route path="/audio-guide" element={<SmartAudioGuide />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/accomodation" element={<Accomodation />} />
+          <Route path="/map" element={<MapPage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
